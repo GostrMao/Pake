@@ -1,0 +1,29 @@
+name: Build ChatGPT with Proxy
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Pake CLI
+        run: npm install -g pake-cli
+
+      - name: Build app
+        run: |
+          pake "https://chatgpt.com/" "ChatGPT" \
+            --proxy-url "http://127.0.0.1:7890" \
+            --width 1200 --height 780
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChatGPT-app
+          path: "*.dmg"
