@@ -18,7 +18,7 @@ jobs:
 
       - name: Build app
         run: |
-          pake "https://chatgpt.com/" "ChatGPT" \
+          pake "https://chatgpt.com/" --name "ChatGPT" \
             --proxy-url "http://127.0.0.1:7890" \
             --width 1200 --height 780
 
